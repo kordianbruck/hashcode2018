@@ -2,6 +2,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -13,14 +14,19 @@ public class Main {
 
         int rows = in.nextInt();
         int cols = in.nextInt();
-        int vehicles = in.nextInt();
-        int rides = in.nextInt();
+        int numVehicles = in.nextInt();
+        int numRides = in.nextInt();
         int bonus = in.nextInt();
         int steps = in.nextInt();
 
-        for (int i = 1; i <= rides; ++i) {
-            Ride ride = readRide(in);
-            System.out.println(ride);
+        ArrayList<Vehicle> vehicles = new ArrayList<>(numVehicles);
+        ArrayList<Ride> rides = new ArrayList<>(numRides);
+
+        for (int i = 0; i < numRides; ++i) {
+            rides.add(readRide(in));
+        }
+        for (int i = 0; i < numVehicles; ++i) {
+            vehicles.add(new Vehicle(new Location(0, 0), false));
         }
     }
 
