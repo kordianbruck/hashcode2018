@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 
 public class Main {
@@ -11,16 +14,20 @@ public class Main {
         ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
         ArrayList<Ride> rides = new ArrayList<>(maxRides);
         Simulation simulation = new Simulation();
-        Parser.readData("indata/a_example.in", vehicles, rides, simulation);
+        Parser.readData("indata/b_should_be_easy.in", vehicles, rides, simulation);
         doCalc(vehicles, rides);
-        printResults(vehicles);
+        //printResults(vehicles);
+        System.out.println(simulation.totalPoints(vehicles));
     }
 
     static void doCalc(List<Vehicle> vehicles, List<Ride> rides) {
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
 
         for (Ride ride : rides) {
-            Optional<Vehicle> v = getVehicle(vehicles, ride);
+            Optional<Vehicle> v = getOptimalVehicle(vehicles, ride);
+            if (!v.isPresent()) {
+                v = getVehicle(vehicles, ride);
+            }
             v.ifPresent(vehicle -> vehicle.addRide(ride));
         }
     }
@@ -29,6 +36,12 @@ public class Main {
         for (Vehicle v : vehicles) {
             v.printDoneRides();
         }
+    }
+
+    static Optional<Vehicle> getOptimalVehicle(List<Vehicle> vehicles, Ride ride) {
+        return vehicles.stream()
+                .filter(vehicle -> vehicle.canServeWithBonus(ride))
+                .findFirst();
     }
 
     static Optional<Vehicle> getVehicle(List<Vehicle> vehicles, Ride ride) {
