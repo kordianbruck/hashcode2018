@@ -6,8 +6,12 @@ data class Vehicle(val location: Location,
 
     val doneRides: ArrayList<Ride> = ArrayList()
 
+    fun getLastLocation() : Location {
+        return if (doneRides.isEmpty()) Location(0, 0) else doneRides.last().finish
+    }
+
     fun canServe(next: Ride): Boolean {
-        val location = if (doneRides.isEmpty()) Location(0, 0) else doneRides.last().finish
+        val location = getLastLocation()
         val lastTime = getLastTime()
         val nextLoc = next.start
         val distance = location.getDistance(nextLoc)
@@ -17,7 +21,7 @@ data class Vehicle(val location: Location,
     }
 
     fun canServeWithBonus(next: Ride): Boolean {
-        val location = if (doneRides.isEmpty()) Location(0, 0) else doneRides.last().finish
+        val location = getLastLocation()
         val lastTime = getLastTime()
         val nextLoc = next.start
         val distance = location.getDistance(nextLoc)
