@@ -12,6 +12,9 @@ public class Main {
 
     private static int rideId = 0;
 
+    static ArrayList<Vehicle> vehicles;
+    static ArrayList<Ride> rides;
+
     public static void main(String[] args) throws Exception {
         String filename = "indata/a_example.in";
         Scanner in = new Scanner(new BufferedReader(new FileReader(filename)));
@@ -23,8 +26,8 @@ public class Main {
         int bonus = in.nextInt();
         int steps = in.nextInt();
 
-        ArrayList<Vehicle> vehicles = new ArrayList<>(numVehicles);
-        ArrayList<Ride> rides = new ArrayList<>(numRides);
+        vehicles = new ArrayList<>(numVehicles);
+        rides = new ArrayList<>(numRides);
 
         for (int i = 0; i < numRides; ++i) {
             rides.add(readRide(in));
