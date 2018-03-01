@@ -2,10 +2,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
@@ -35,6 +32,17 @@ public class Main {
         for (int i = 0; i < numVehicles; ++i) {
             vehicles.add(new Vehicle(new Location(0, 0), false));
         }
+
+        rides.sort(Comparator.comparingInt(Ride::getLatestStart));
+
+        for (Ride ride : rides) {
+            Optional<Vehicle> v = getVehicle(ride);
+            v.ifPresent(vehicle -> vehicle.addRide(ride));
+        }
+
+        for (Vehicle v : vehicles) {
+            System.out.println(v.getDoneRidesList());
+        }
     }
 
     @NotNull
@@ -46,6 +54,12 @@ public class Main {
         int earliestStart = in.nextInt();
         int latestFinish = in.nextInt();
         return new Ride(rideId++, new Location(startRow, startCol), new Location(finRow, finCol), earliestStart, latestFinish);
+    }
+
+    static Optional<Vehicle> getVehicle(Ride ride) {
+        return vehicles.stream()
+                .filter(vehicle -> vehicle.canServe(ride))
+                .findFirst();
     }
 
 
