@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.PriorityQueue;
+import java.util.*;
 
 
 public class Main {
@@ -9,39 +6,35 @@ public class Main {
     static int maxVehicles = 1000;
     static int maxRides = 1000;
 
-    static ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
-    static ArrayList<Ride> rides = new ArrayList<>(maxRides);
-    static Simulation simulation = new Simulation();
-
 
     public static void main(String[] args) throws Exception {
+        ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
+        ArrayList<Ride> rides = new ArrayList<>(maxRides);
+        Simulation simulation = new Simulation();
         Parser.readData("indata/a_example.in", vehicles, rides, simulation);
+        doCalc(vehicles, rides);
+        printResults(vehicles);
+    }
 
+    static void doCalc(List<Vehicle> vehicles, List<Ride> rides) {
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
 
         for (Ride ride : rides) {
-            Optional<Vehicle> v = getVehicle(ride);
+            Optional<Vehicle> v = getVehicle(vehicles, ride);
             v.ifPresent(vehicle -> vehicle.addRide(ride));
         }
+    }
 
+    static void printResults(List<Vehicle> vehicles) {
         for (Vehicle v : vehicles) {
             v.printDoneRides();
         }
     }
 
-    static Optional<Vehicle> getVehicle(Ride ride) {
+    static Optional<Vehicle> getVehicle(List<Vehicle> vehicles, Ride ride) {
         return vehicles.stream()
                 .filter(vehicle -> vehicle.canServe(ride))
                 .findFirst();
-    }
-
-
-    public static boolean doMagic() {
-        Comparator<String> comparator = new StringLengthComparator();
-        PriorityQueue<String> queue = new PriorityQueue<String>(10, comparator);
-
-
-        return true;
     }
 }
 
