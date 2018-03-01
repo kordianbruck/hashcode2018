@@ -7,6 +7,11 @@ import static org.junit.Assert.assertTrue;
 
 public class MainTest {
 
+    private boolean validate () {
+
+        return true;
+    }
+
 
     @Test
     public void testA() throws FileNotFoundException {
