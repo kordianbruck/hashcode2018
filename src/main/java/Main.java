@@ -9,15 +9,12 @@ public class Main {
     static int maxVehicles = 1000;
     static int maxRides = 1000;
 
-    static ArrayList<Vehicle> vehicles;
-    static ArrayList<Ride> rides;
-    static Simulation simulation;
+    static ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
+    static ArrayList<Ride> rides = new ArrayList<>(maxRides);
+    static Simulation simulation = new Simulation();
 
 
     public static void main(String[] args) throws Exception {
-        vehicles = new ArrayList<>(maxVehicles);
-        rides = new ArrayList<>(maxRides);
-
         Parser.readData("indata/a_example.in", vehicles, rides, simulation);
 
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
