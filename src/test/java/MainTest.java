@@ -3,15 +3,24 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertTrue;
+
 public class MainTest {
 
 
     @Test
     public void testA() throws FileNotFoundException {
+        //Setup
         ArrayList<Vehicle> vehicles = new ArrayList<>(Main.maxVehicles);
         ArrayList<Ride> rides = new ArrayList<>(Main.maxRides);
         Simulation s = new Simulation();
         Parser.readData("indata/a_example.in", vehicles, rides, s);
+
+        //Do stuff
+
+
+        //Result
+        assertTrue(s.totalPoints(vehicles) > 0);
     }
 
     @Test
