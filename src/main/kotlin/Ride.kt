@@ -10,7 +10,11 @@ data class Ride(val id: Int,
         return timeStarted + getTotalDistance()
     }
 
-    public fun getTotalDistance(): Int {
+    fun getLatestStart(): Int {
+        return timeLatest - getTotalDistance()
+    }
+
+    fun getTotalDistance(): Int {
         return start.getDistance(finish)
     }
 

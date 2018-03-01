@@ -2,7 +2,17 @@ data class Vehicle(val location: Location,
                    val inTransit: Boolean) {
 
 
-    val doneRides: ArrayList<Ride> = ArrayList<Ride>()
+    val doneRides: ArrayList<Ride> = ArrayList()
+
+    fun canServe(next: Ride): Boolean {
+        val location = doneRides.last().finish
+        val lastTime = doneRides.last().getTimeFinished()
+        val nextLoc = next.start
+        val distance = location.getDistance(nextLoc)
+        val nextStart = next.getLatestStart() // TODO optimize bonus
+
+        return lastTime + distance <= nextStart
+    }
 
     fun addRide(r: Ride) {
         doneRides.add(r)
