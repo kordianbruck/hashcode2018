@@ -14,7 +14,7 @@ public class Main {
         ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
         ArrayList<Ride> rides = new ArrayList<>(maxRides);
         Simulation simulation = new Simulation();
-        Parser.readData("indata/b_should_be_easy.in", vehicles, rides, simulation);
+        Parser.readData("indata/e_high_bonus.in", vehicles, rides, simulation);
         doCalc(vehicles, rides);
         //printResults(vehicles);
         System.out.println(simulation.totalPoints(vehicles));
@@ -41,13 +41,13 @@ public class Main {
     static Optional<Vehicle> getOptimalVehicle(List<Vehicle> vehicles, Ride ride) {
         return vehicles.stream()
                 .filter(vehicle -> vehicle.canServeWithBonus(ride))
-                .findFirst();
+                .min(Comparator.comparingInt(o -> o.getLastLocation().getDistance(ride.getStart())));
     }
 
     static Optional<Vehicle> getVehicle(List<Vehicle> vehicles, Ride ride) {
         return vehicles.stream()
                 .filter(vehicle -> vehicle.canServe(ride))
-                .findFirst();
+                .min(Comparator.comparingInt(o -> o.getLastLocation().getDistance(ride.getStart())));
     }
 }
 
