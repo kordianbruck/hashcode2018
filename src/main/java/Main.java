@@ -9,8 +9,10 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) throws Exception {
 
+    private static int rideId = 0;
+
+    public static void main(String[] args) throws Exception {
         String filename = "indata/a_example.in";
         Scanner in = new Scanner(new BufferedReader(new FileReader(filename)));
 
@@ -40,7 +42,7 @@ public class Main {
         int finCol = in.nextInt();
         int earliestStart = in.nextInt();
         int latestFinish = in.nextInt();
-        return new Ride(new Location(startRow, startCol), new Location(finRow, finCol), earliestStart, latestFinish);
+        return new Ride(rideId++, new Location(startRow, startCol), new Location(finRow, finCol), earliestStart, latestFinish);
     }
 
 
