@@ -17,6 +17,8 @@ public class Parser {
 
     public static void readData(File file, ArrayList<Vehicle> vehicles, ArrayList<Ride> rides, Simulation s) throws FileNotFoundException {
         rideId = 0;
+        vehicles.clear();
+        rides.clear();
         Scanner in = new Scanner(new BufferedReader(new FileReader(file)));
 
         s.setRows(in.nextInt());
