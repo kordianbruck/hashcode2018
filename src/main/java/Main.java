@@ -15,6 +15,11 @@ public class Main {
             System.out.println("Case #" + i + ": " + (n + m) + " " + (n * m));
         }
     }
+
+
+    public static boolean doMagic() {
+        return true;
+    }
 }
 
 

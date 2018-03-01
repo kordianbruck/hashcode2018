@@ -7,6 +7,6 @@ public class MainTest {
 
     @Test
     public void testSomething() {
-        assertTrue(true);
+        assertTrue(Main.doMagic());
     }
 }
