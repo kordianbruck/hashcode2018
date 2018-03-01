@@ -9,4 +9,9 @@ public class MainTest {
     public void testSomething() {
         assertTrue(Main.doMagic());
     }
+
+    @Test
+    public void testSomething() {
+        assertTrue(!!Main.doMagic());
+    }
 }
