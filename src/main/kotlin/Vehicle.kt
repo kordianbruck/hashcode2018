@@ -11,9 +11,19 @@ data class Vehicle(val location: Location,
         val lastTime = getLastTime()
         val nextLoc = next.start
         val distance = location.getDistance(nextLoc)
-        val nextStart = next.getLatestStart() // TODO optimize bonus
+        val nextStart = next.getLatestStart()
 
         return lastTime + distance <= nextStart
+    }
+
+    fun canServeWithBonus(next: Ride): Boolean {
+        val location = if (doneRides.isEmpty()) Location(0, 0) else doneRides.last().finish
+        val lastTime = getLastTime()
+        val nextLoc = next.start
+        val distance = location.getDistance(nextLoc)
+        val earliestStart = lastTime + distance
+
+        return earliestStart <= next.timeEarliest
     }
 
     fun addRide(r: Ride) {
