@@ -18,12 +18,13 @@ data class Vehicle(val location: Location,
         doneRides.add(r)
     }
 
-    fun getDoneRidesList(): String {
-        var out: String = ""
-        for (r in doneRides) {
-            out += r.id.toString() + ", "
+    fun printDoneRides() {
+        print(doneRides.size)
+        doneRides.forEach {
+            print(' ')
+            print(it.id)
         }
-        return out
+        println()
     }
 
     fun calcPoints(bonus: Int): Int {

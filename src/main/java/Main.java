@@ -41,7 +41,7 @@ public class Main {
         }
 
         for (Vehicle v : vehicles) {
-            System.out.println(v.getDoneRidesList());
+            v.printDoneRides();
         }
     }
 
