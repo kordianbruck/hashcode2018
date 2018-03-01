@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -11,8 +12,12 @@ public class Parser {
     private static int rideId = 0;
 
     public static void readData(String filename, ArrayList<Vehicle> vehicles, ArrayList<Ride> rides, Simulation s) throws FileNotFoundException {
+        readData(new File(filename), vehicles, rides, s);
+    }
+
+    public static void readData(File file, ArrayList<Vehicle> vehicles, ArrayList<Ride> rides, Simulation s) throws FileNotFoundException {
         rideId = 0;
-        Scanner in = new Scanner(new BufferedReader(new FileReader(filename)));
+        Scanner in = new Scanner(new BufferedReader(new FileReader(file)));
 
         s.setRows(in.nextInt());
         s.setCols(in.nextInt());

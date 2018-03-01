@@ -1,4 +1,3 @@
-import java.io.File
 import java.io.PrintWriter
 import java.util.stream.Collectors
 
@@ -11,11 +10,7 @@ data class Simulation(
         var numVehicles: Int = 0) {
 
     fun totalPoints(vehicles: List<Vehicle>): Int {
-        var pts = 0
-        for (v in vehicles) {
-            pts += v.calcPoints(bonus)
-        }
-        return pts
+        return vehicles.sumBy { it.calcPoints(bonus) }
     }
 
     fun saveResults(vehicles: List<Vehicle>, filename: String) {

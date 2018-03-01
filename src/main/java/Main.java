@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -14,10 +15,16 @@ public class Main {
         ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
         ArrayList<Ride> rides = new ArrayList<>(maxRides);
         Simulation simulation = new Simulation();
-        Parser.readData("indata/e_high_bonus.in", vehicles, rides, simulation);
-        doCalc(vehicles, rides);
-        //printResults(vehicles);
-        System.out.println(simulation.totalPoints(vehicles));
+        File[] files = new File("indata").listFiles();
+
+        int total = 0;
+        for (File file : files) {
+            Parser.readData(file, vehicles, rides, simulation);
+            doCalc(vehicles, rides);
+            total += simulation.totalPoints(vehicles);
+        }
+
+        System.out.println(total);
     }
 
     static void doCalc(List<Vehicle> vehicles, List<Ride> rides) {
