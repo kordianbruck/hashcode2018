@@ -10,21 +10,21 @@ public class Parser {
 
     private static int rideId = 0;
 
-    public static void readData(String filename, ArrayList<Vehicle> vehicles, ArrayList<Ride> rides) throws FileNotFoundException {
+    public static void readData(String filename, ArrayList<Vehicle> vehicles, ArrayList<Ride> rides, Simulation s) throws FileNotFoundException {
         rideId = 0;
         Scanner in = new Scanner(new BufferedReader(new FileReader(filename)));
 
-        int rows = in.nextInt();
-        int cols = in.nextInt();
-        int numVehicles = in.nextInt();
-        int numRides = in.nextInt();
-        int bonus = in.nextInt();
-        int steps = in.nextInt();
+        s.setRows(in.nextInt());
+        s.setCols(in.nextInt());
+        s.setNumVehicles(in.nextInt());
+        s.setNumRides(in.nextInt());
+        s.setBonus(in.nextInt());
+        s.setSteps(in.nextInt());
 
-        for (int i = 0; i < numRides; ++i) {
+        for (int i = 0; i < s.getNumRides(); ++i) {
             rides.add(readRide(in));
         }
-        for (int i = 0; i < numVehicles; ++i) {
+        for (int i = 0; i < s.getNumVehicles(); ++i) {
             vehicles.add(new Vehicle(new Location(0, 0), false));
         }
     }

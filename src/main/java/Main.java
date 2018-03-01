@@ -12,13 +12,14 @@ public class Main {
 
     static ArrayList<Vehicle> vehicles;
     static ArrayList<Ride> rides;
+    static Simulation simulation;
 
 
     public static void main(String[] args) throws Exception {
         vehicles = new ArrayList<>(maxVehicles);
         rides = new ArrayList<>(maxRides);
 
-        Parser.readData("indata/a_example.in", vehicles, rides);
+        Parser.readData("indata/a_example.in", vehicles, rides, simulation);
 
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
 
