@@ -7,31 +7,18 @@ import java.util.*;
 
 public class Main {
 
-    private static int rideId = 0;
+    static int maxVehicles = 1000;
+    static int maxRides = 1000;
 
     static ArrayList<Vehicle> vehicles;
     static ArrayList<Ride> rides;
 
+
     public static void main(String[] args) throws Exception {
-        String filename = "indata/a_example.in";
-        Scanner in = new Scanner(new BufferedReader(new FileReader(filename)));
+        vehicles = new ArrayList<>(maxVehicles);
+        rides = new ArrayList<>(maxRides);
 
-        int rows = in.nextInt();
-        int cols = in.nextInt();
-        int numVehicles = in.nextInt();
-        int numRides = in.nextInt();
-        int bonus = in.nextInt();
-        int steps = in.nextInt();
-
-        vehicles = new ArrayList<>(numVehicles);
-        rides = new ArrayList<>(numRides);
-
-        for (int i = 0; i < numRides; ++i) {
-            rides.add(readRide(in));
-        }
-        for (int i = 0; i < numVehicles; ++i) {
-            vehicles.add(new Vehicle(new Location(0, 0), false));
-        }
+        Parser.readData("indata/a_example.in", vehicles, rides);
 
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
 
@@ -43,17 +30,6 @@ public class Main {
         for (Vehicle v : vehicles) {
             System.out.println(v.getDoneRidesList());
         }
-    }
-
-    @NotNull
-    private static Ride readRide(Scanner in) {
-        int startRow = in.nextInt();
-        int startCol = in.nextInt();
-        int finRow = in.nextInt();
-        int finCol = in.nextInt();
-        int earliestStart = in.nextInt();
-        int latestFinish = in.nextInt();
-        return new Ride(rideId++, new Location(startRow, startCol), new Location(finRow, finCol), earliestStart, latestFinish);
     }
 
     static Optional<Vehicle> getVehicle(Ride ride) {
