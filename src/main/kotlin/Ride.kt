@@ -4,7 +4,7 @@ data class Ride(val id: Int,
                 val timeEarliest: Int,
                 val timeLatest: Int) {
 
-    val timeStarted: Int = 0
+    var timeStarted: Int = 0
 
     fun getTimeFinished(): Int {
         return timeStarted + getTotalDistance()

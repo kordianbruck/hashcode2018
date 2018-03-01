@@ -1,3 +1,5 @@
+import kotlin.math.max
+
 data class Vehicle(val location: Location,
                    val inTransit: Boolean) {
 
@@ -6,7 +8,7 @@ data class Vehicle(val location: Location,
 
     fun canServe(next: Ride): Boolean {
         val location = if (doneRides.isEmpty()) Location(0, 0) else doneRides.last().finish
-        val lastTime = if (doneRides.isEmpty()) 0 else doneRides.last().getTimeFinished()
+        val lastTime = getLastTime()
         val nextLoc = next.start
         val distance = location.getDistance(nextLoc)
         val nextStart = next.getLatestStart() // TODO optimize bonus
@@ -15,7 +17,17 @@ data class Vehicle(val location: Location,
     }
 
     fun addRide(r: Ride) {
+        val lastTime = getLastTime()
+        val nextLoc = r.start
+        val distance = location.getDistance(nextLoc)
+        val earliestStart = lastTime + distance
+        val actualStart = max(r.timeEarliest, earliestStart)
+        r.timeStarted = actualStart
         doneRides.add(r)
+    }
+
+    fun getLastTime(): Int {
+        return if (doneRides.isEmpty()) 0 else doneRides.last().getTimeFinished()
     }
 
     fun printDoneRides() {
