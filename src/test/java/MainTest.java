@@ -2,12 +2,16 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class MainTest {
 
-    private boolean validate () {
+    private boolean validate (Simulation s, List<Vehicle> vehicleList) {
+        for(int i=0; i<s.getSteps(); i++) {
+
+        }
 
         return true;
     }
@@ -25,7 +29,9 @@ public class MainTest {
         Main.doCalc(vehicles, rides);
 
         //Result
+        s.saveResults(vehicles, "a");
         System.out.println(s.totalPoints(vehicles));
+        assertTrue(validate(s, vehicles));
         assertTrue(s.totalPoints(vehicles) > 0);
     }
 
@@ -40,6 +46,7 @@ public class MainTest {
         Main.doCalc(vehicles, rides);
 
         //Result
+        s.saveResults(vehicles, "b");
         System.out.println(s.totalPoints(vehicles));
         assertTrue(s.totalPoints(vehicles) > 0);
     }
@@ -55,6 +62,8 @@ public class MainTest {
         Main.doCalc(vehicles, rides);
 
         //Result
+
+        s.saveResults(vehicles, "c");
         System.out.println(s.totalPoints(vehicles));
         assertTrue(s.totalPoints(vehicles) > 0);
     }
@@ -70,6 +79,9 @@ public class MainTest {
         Main.doCalc(vehicles, rides);
 
         //Result
+
+
+        s.saveResults(vehicles, "d");
         System.out.println(s.totalPoints(vehicles));
         assertTrue(s.totalPoints(vehicles) > 0);
     }
@@ -85,6 +97,7 @@ public class MainTest {
         Main.doCalc(vehicles, rides);
 
         //Result
+        s.saveResults(vehicles, "e");
         System.out.println(s.totalPoints(vehicles));
         assertTrue(s.totalPoints(vehicles) > 0);
     }
