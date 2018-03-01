@@ -1,7 +1,7 @@
+import java.util.*
 import kotlin.math.max
 
-data class Vehicle(val location: Location,
-                   val inTransit: Boolean) {
+data class Vehicle(val location: Location) {
 
 
     val doneRides: ArrayList<Ride> = ArrayList()

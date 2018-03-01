@@ -32,7 +32,7 @@ public class Parser {
             rides.add(readRide(in));
         }
         for (int i = 0; i < s.getNumVehicles(); ++i) {
-            vehicles.add(new Vehicle(new Location(0, 0), false));
+            vehicles.add(new Vehicle(new Location(0, 0)));
         }
     }
 

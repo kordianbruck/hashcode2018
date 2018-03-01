@@ -1,8 +1,5 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class Main {
@@ -12,9 +9,9 @@ public class Main {
 
     static Comparator<Ride>[] sorters = new Comparator[]{
             Comparator.comparingInt(Ride::getLatestStart),
-            Comparator.comparingInt(Ride::getTotalDistance).reversed(),
-            Comparator.comparingInt(Ride::getTimeEarliest),
-            Comparator.comparingInt(Ride::getDistanceToStart),
+            //Comparator.comparingInt(Ride::getTotalDistance).reversed(),
+            //Comparator.comparingInt(Ride::getTimeEarliest),
+            //Comparator.comparingInt(Ride::getDistanceToStart),
     };
 
 
@@ -35,13 +32,24 @@ public class Main {
                 }
                 doCalc(vehicles, rides, simulation, c);
                 int pts = simulation.totalPoints(vehicles);
+                System.out.println(pts);
+                if (pts > max) {
+                    simulation.saveResults(vehicles, file.getName());
+                    max = pts;
+                }
+
+                for (Vehicle v : vehicles) {
+                    v.getDoneRides().clear();
+                }
+                doCalcSteps(vehicles, rides, simulation, c);
+                pts = simulation.totalPoints(vehicles);
+                System.out.println(pts + "\n");
                 if (pts > max) {
                     simulation.saveResults(vehicles, file.getName());
                     max = pts;
                 }
             }
             total += max;
-            System.out.println(simulation.totalPoints(vehicles));
         }
 
         System.out.println("\n" + total);
@@ -56,6 +64,37 @@ public class Main {
                 v = getVehicle(vehicles, ride);
             }
             v.ifPresent(vehicle -> vehicle.addRide(ride));
+        }
+    }
+
+    static void doCalcSteps(List<Vehicle> vehicles, List<Ride> rides, Simulation s, Comparator c) {
+        rides.sort(c);
+        Comparator<Ride> comparator = new StringLengthComparator();
+        PriorityQueue<Ride> queue = new PriorityQueue<>(rides.size(), comparator);
+        queue.addAll(rides);
+
+        for (int i = 0; i < s.getSteps(); i++) {
+            for (Vehicle v : vehicles) {
+                if (v.getLastTime() >= i) {
+                    if (queue.isEmpty()) {
+                        return;
+                    }
+                    v.addRide(queue.remove());
+                }
+            }
+        }
+    }
+
+    public static class StringLengthComparator implements Comparator<Ride> {
+        @Override
+        public int compare(Ride x, Ride y) {
+            if (x.getLatestStart() < y.getLatestStart()) {
+                return -1;
+            }
+            if (x.getLatestStart() > y.getLatestStart()) {
+                return 1;
+            }
+            return 0;
         }
     }
 
