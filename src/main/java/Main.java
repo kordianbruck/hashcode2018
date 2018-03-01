@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 
 public class Main {
@@ -20,18 +21,28 @@ public class Main {
         int total = 0;
         for (File file : files) {
             Parser.readData(file, vehicles, rides, simulation);
-            doCalc(vehicles, rides);
+            doCalc(vehicles, rides, simulation);
             total += simulation.totalPoints(vehicles);
         }
 
         System.out.println(total);
     }
 
-    static void doCalc(List<Vehicle> vehicles, List<Ride> rides) {
+    static void doCalc(List<Vehicle> vehicles, List<Ride> rides, Simulation s) {
         rides.sort(Comparator.comparingInt(Ride::getLatestStart));
 
+        int dist = 0;
+        for (Ride r : rides) {
+            dist += r.getTotalDistance();
+        }
+        double avgDist = dist / rides.size();
+
         for (Ride ride : rides) {
-            Optional<Vehicle> v = getOptimalVehicle(vehicles, ride);
+            Optional<Vehicle> v = Optional.empty();
+            if (s.getBonus() < avgDist) {
+                v = getOptimalVehicle(vehicles, ride);
+            }
+
             if (!v.isPresent()) {
                 v = getVehicle(vehicles, ride);
             }

@@ -26,7 +26,7 @@ public class MainTest {
         Parser.readData("indata/a_example.in", vehicles, rides, s);
 
         //Do stuff
-        Main.doCalc(vehicles, rides);
+        Main.doCalc(vehicles, rides, s);
 
         //Result
         s.saveResults(vehicles, "a");
@@ -43,7 +43,7 @@ public class MainTest {
         Parser.readData("indata/b_should_be_easy.in", vehicles, rides, s);
 
         //Do stuff
-        Main.doCalc(vehicles, rides);
+        Main.doCalc(vehicles, rides, s);
 
         //Result
         s.saveResults(vehicles, "b");
@@ -59,7 +59,7 @@ public class MainTest {
         Parser.readData("indata/c_no_hurry.in", vehicles, rides, s);
 
         //Do stuff
-        Main.doCalc(vehicles, rides);
+        Main.doCalc(vehicles, rides, s);
 
         //Result
 
@@ -76,7 +76,7 @@ public class MainTest {
         Parser.readData("indata/d_metropolis.in", vehicles, rides, s);
 
         //Do stuff
-        Main.doCalc(vehicles, rides);
+        Main.doCalc(vehicles, rides, s);
 
         //Result
 
@@ -94,7 +94,7 @@ public class MainTest {
         Parser.readData("indata/e_high_bonus.in", vehicles, rides, s);
 
         //Do stuff
-        Main.doCalc(vehicles, rides);
+        Main.doCalc(vehicles, rides, s);
 
         //Result
         s.saveResults(vehicles, "e");
