@@ -8,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 public class MainTest {
 
-    private boolean validate (Simulation s, List<Vehicle> vehicleList) {
-        for(int i=0; i<s.getSteps(); i++) {
+    private boolean validate(Simulation s, List<Vehicle> vehicleList) {
+        for (int i = 0; i < s.getSteps(); i++) {
 
         }
 
@@ -32,7 +32,7 @@ public class MainTest {
         s.saveResults(vehicles, "a");
         System.out.println(s.totalPoints(vehicles));
         assertTrue(validate(s, vehicles));
-        assertTrue(s.totalPoints(vehicles) > 0);
+        assertTrue(s.totalPoints(vehicles) >= 10);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class MainTest {
         //Result
         s.saveResults(vehicles, "b");
         System.out.println(s.totalPoints(vehicles));
-        assertTrue(s.totalPoints(vehicles) > 0);
+        assertTrue(s.totalPoints(vehicles) >= 174002);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MainTest {
 
         s.saveResults(vehicles, "c");
         System.out.println(s.totalPoints(vehicles));
-        assertTrue(s.totalPoints(vehicles) > 0);
+        assertTrue(s.totalPoints(vehicles) >= 8486745);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class MainTest {
 
         s.saveResults(vehicles, "d");
         System.out.println(s.totalPoints(vehicles));
-        assertTrue(s.totalPoints(vehicles) > 0);
+        assertTrue(s.totalPoints(vehicles) >= 5193913);
     }
 
     @Test
@@ -99,6 +99,6 @@ public class MainTest {
         //Result
         s.saveResults(vehicles, "e");
         System.out.println(s.totalPoints(vehicles));
-        assertTrue(s.totalPoints(vehicles) > 0);
+        assertTrue(s.totalPoints(vehicles) >= 18236945);
     }
 }
