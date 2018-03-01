@@ -17,4 +17,8 @@ data class Ride(val id: Int,
     fun getTotalDistance(): Int {
         return start.getDistance(finish)
     }
+
+    fun getDistanceToStart(): Int {
+        return start.getDistance(Location(0,0))
+    }
 }

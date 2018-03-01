@@ -10,6 +10,13 @@ public class Main {
     static int maxVehicles = 1000;
     static int maxRides = 1000;
 
+    static Comparator<Ride>[] sorters = new Comparator[]{
+            Comparator.comparingInt(Ride::getLatestStart),
+            Comparator.comparingInt(Ride::getTotalDistance).reversed(),
+            Comparator.comparingInt(Ride::getTimeEarliest),
+            Comparator.comparingInt(Ride::getDistanceToStart),
+    };
+
 
     public static void main(String[] args) throws Exception {
         ArrayList<Vehicle> vehicles = new ArrayList<>(maxVehicles);
@@ -19,17 +26,29 @@ public class Main {
 
         int total = 0;
         for (File file : files) {
+            int max = 0;
+
             Parser.readData(file, vehicles, rides, simulation);
-            doCalc(vehicles, rides, simulation);
-            total += simulation.totalPoints(vehicles);
+            for (Comparator c : sorters) {
+                for (Vehicle v : vehicles) {
+                    v.getDoneRides().clear();
+                }
+                doCalc(vehicles, rides, simulation, c);
+                int pts = simulation.totalPoints(vehicles);
+                if (pts > max) {
+                    simulation.saveResults(vehicles, file.getName());
+                    max = pts;
+                }
+            }
+            total += max;
+            System.out.println(simulation.totalPoints(vehicles));
         }
 
-        System.out.println(total);
+        System.out.println("\n" + total);
     }
 
-    static void doCalc(List<Vehicle> vehicles, List<Ride> rides, Simulation s) {
-        rides.sort(Comparator.comparingInt(Ride::getLatestStart));
-
+    static void doCalc(List<Vehicle> vehicles, List<Ride> rides, Simulation s, Comparator c) {
+        rides.sort(c);
         for (Ride ride : rides) {
             Optional<Vehicle> v = getOptimalVehicle(vehicles, ride);
 
