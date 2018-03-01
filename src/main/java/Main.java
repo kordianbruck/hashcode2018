@@ -18,6 +18,10 @@ public class Main {
 
 
     public static boolean doMagic() {
+        Comparator<String> comparator = new StringLengthComparator();
+        PriorityQueue<String> queue = new PriorityQueue<String>(10, comparator);
+
+
         return true;
     }
 }
